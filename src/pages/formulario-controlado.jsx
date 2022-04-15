@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../components/controled-components/input.controled";
 import TextArea from "../components/controled-components/text-area.controlled";
+import RadioGroup from "../components/controled-components/radio-group";
+import Radio from "../components/controled-components/radio";
+import CheckGroup from "../components/controled-components/checkbox-group.controlled";
+import CheckBox from "../components/controled-components/checkbox.controlled";
 
 const FormControled = () => {
   const [name, setName] = useState({
@@ -37,7 +41,14 @@ const FormControled = () => {
     campo: "",
     valid: null,
     error: "",
-  })
+  });
+
+  const [pais, setPais] = useState({
+    campo: "",
+    error: "",
+  });
+
+  const [preference, setPreference] = useState([])
 
   const expresiones = {
     usuario: /^[a-zA-Z0-9_-]{4,16}$/, // Letras, numeros, guion y guion_bajo
@@ -46,6 +57,11 @@ const FormControled = () => {
     correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
     telefono: /^\d{7,14}$/, // 7 a 14 numeros.
   };
+
+useEffect(() => {
+  console.log(preference);
+})
+  
 
   return (
     <>
@@ -117,8 +133,54 @@ const FormControled = () => {
                 value={info}
                 required={false}
                 changeValue={setInfo}
-                error= "El texto no puede tener mas de 300 caracteres"
+                error="El texto no puede tener mas de 300 caracteres"
               />
+            </div>
+            <div className="w-100 d-flex">
+              <div className="w-50 d-flex">
+                <RadioGroup labelGroup="Pais" required={true} value={pais}>
+                  <Radio
+                    name="pais"
+                    labelRadio="Colombia"
+                    changeValue={setPais}
+                    value={pais.campo}
+                  />
+                  <Radio
+                    name="pais"
+                    labelRadio="Japon"
+                    changeValue={setPais}
+                    value={pais.campo}
+                  />
+                  <Radio
+                    name="pais"
+                    labelRadio="Japon"
+                    changeValue={setPais}
+                    value={pais.campo}
+                  />
+                </RadioGroup>
+              </div>
+              <div className="w-50 d-flex">
+                <CheckGroup labelGroup="Preferencias">
+                  <CheckBox
+                    label="Programacion"
+                    valueInput= "programacion"
+                    value={preference}
+                    changeValue={setPreference}
+                  />
+                  <CheckBox
+                    label="Videojuegos"
+                    valueInput="videojuegos"
+                    value={preference}
+                    changeValue={setPreference}
+                  />
+                  <CheckBox
+                    label="Diseño"
+                    valueInput="diseño"
+                    value={preference}
+                    changeValue={setPreference}
+                  />
+                </CheckGroup>
+              </div>
             </div>
           </div>
         </div>
